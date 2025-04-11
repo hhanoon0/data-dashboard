@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { fetchUserId } from "../../lib/api"; // Import the fetchUserId function
+import ChartComponent from "../components/audit"; 
+import { XPBarChart } from "../components/xp"; // Import the XPBarChart component
 
 const DashboardPage = () => {
-  const [userId, setUserId] = useState<string | null>(null);
   const [userData, setUserData] = useState<any>(null);
   const [xpData, setXpData] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -14,7 +15,6 @@ const DashboardPage = () => {
       try {
         // Fetch user ID using the imported function
         const data = await fetchUserId();
-        setUserId(data[0]);
 
         // Replace with your own logic to fetch user data
         const user = {
@@ -22,7 +22,7 @@ const DashboardPage = () => {
           firstname: data[2],
           lastname:data[3],
           email:data[4],
-          joinedAt:data[5],
+          joinedAt:new Date(data[5]).toLocaleDateString(),
         }; // Example mock data
         setUserData(user);
         console.log(data);
@@ -45,25 +45,13 @@ const DashboardPage = () => {
 
   return (
     <div style={{ padding: "2rem", backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
-      <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>Dashboard</h1>
-
-      {userId ? (
-        <div style={{ textAlign: "center", padding: "1rem", backgroundColor: "white", borderRadius: "8px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
-          <h2>User ID</h2>
-          <p>{userId}</p>
-        </div>
-      ) : (
-        <div style={{ textAlign: "center" }}>Loading...</div>
-      )}
-  
-      {/* User Info */}
       {userData && (
         <div style={{ marginBottom: "2rem", padding: "1rem", backgroundColor: "white", borderRadius: "8px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
           <h2>User Info</h2>
           <p><strong>ID</strong> {userData.id}</p>
-          <p><strong>First Name</strong> {userData.firsname}</p>
+          <p><strong>First Name</strong> {userData.firstname}</p>
           <p><strong>Last Name</strong> {userData.lastname}</p>
-          <p><strong>Last Name</strong> {userData.email}</p>
+          <p><strong>Email</strong> {userData.email}</p>
           <p><strong>Joined date</strong> {userData.joinedAt}</p>
 
         </div>
@@ -93,8 +81,13 @@ const DashboardPage = () => {
           </table>
         </div>
       )}
+<ChartComponent/>
+<XPBarChart/>
     </div>
   );
 };
 
 export default DashboardPage;
+
+
+
