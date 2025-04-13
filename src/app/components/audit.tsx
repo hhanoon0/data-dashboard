@@ -87,7 +87,7 @@ const COLORS = ['#8884d8', '#82ca9d'];
             label={false}
           >
             {pieData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke='none' />
             ))}
           </Pie>
           <Tooltip />

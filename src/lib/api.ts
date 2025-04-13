@@ -1,3 +1,5 @@
+let numberOfTransactions : number = 0; // Initialize the variable to store the number of transactions
+
 async function fetchGraphQL(query: string, variables = {}) {
   const token = localStorage.getItem("jwt");
 
@@ -134,6 +136,7 @@ query {
 `;
 
   const data = await fetchGraphQL(query);
+  numberOfTransactions  = data.transaction.length; // Get the number of transactions
   console.log("xps:", data.transaction); // Log the user ID
   return data; // Return the user ID
 }
@@ -154,4 +157,31 @@ export async function XPsum() {
     const data = await fetchGraphQL(query);
     console.log("xps total:", data); // Log the user ID
     return []; // Return the user ID
+}
+
+export async function Mke() {
+const query = `query {
+                    transaction(
+                        where: {
+                            _and: [
+                                {type: { _iregex: "(^|[^[:alnum:]_])[[:alnum:]_]*skill_[[:alnum:]_]*($|[^[:alnum:]_])" }},
+                                {type: {_like: "%skill%"}},
+                                {object: {type: {_eq: "project"}}},
+                                {type: {_in: [
+                                    "skill_prog", "skill_algo", "skill_sys-admin", "skill_front-end", 
+                                    "skill_back-end", "skill_stats", "skill_ai", "skill_game", 
+                                    "skill_tcp"
+                                ]}}
+                            ]
+                        }
+                        order_by: [{type: asc}, {createdAt: desc}]
+                        distinct_on: type
+                    ) {
+                        amount
+                        type
+                    }
+                }`
+    const data = await fetchGraphQL(query);
+    console.log("skill info", data); // Log the user ID
+    return data; // Return the user ID
 }
