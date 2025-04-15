@@ -2,7 +2,6 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import { useEffect, useState } from 'react';
 import {Audits} from "../../lib/api"; // Import the Audits function
 
-import React from 'react';
 
 interface AuditDataType {
     AuditRatio: number;
@@ -24,8 +23,8 @@ export function ChartComponent() {
           // Update state with fetched data
           const formattedData: AuditDataType = {
             AuditRatio: data[0],
-            totalUp: data[1],
-            totalDown: data[2],
+            totalUp: (data[1]/1000000),
+            totalDown: (data[2]/1000000),
           };
           console.log("audit info", formattedData); // Log the audit data
           setAuditData(formattedData);
@@ -80,7 +79,7 @@ const COLORS = ['#8884d8', '#82ca9d'];
             cx="50%"
             cy="50%"
             innerRadius={80}
-            outerRadius={120}
+            outerRadius={140}
             startAngle={rotation}
             endAngle={rotation + 360}
             fill="#8884d8"

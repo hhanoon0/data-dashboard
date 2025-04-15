@@ -97,10 +97,11 @@ const DashboardPage = () => {
           }}
         >
           <p><strong>BH-Module XP</strong> </p>
-          <XPBarChart />
+          <SkillsRadarChart/>
         </div>
       </div>
-      <SkillsRadarChart/>
+      <XPBarChart />
+
     </div>
   );
 };

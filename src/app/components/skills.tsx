@@ -10,7 +10,12 @@ export function SkillsRadarChart () {
       try {
         const data = await Mke();
         if (Array.isArray(data.transaction)) {
-          setSkillsData(data.transaction);
+          // Replace underscores with spaces in the type field
+          const formattedData = data.transaction.map((item) => ({
+            ...item,
+            type: item.type.replace(/_/g, " "),
+          }));
+          setSkillsData(formattedData);
         } else {
           console.error("Unexpected data format:", data);
           setSkillsData([]);
@@ -30,8 +35,6 @@ export function SkillsRadarChart () {
 
   return (
     <div style={{ maxWidth: "500px", margin: "0 auto", textAlign: "center", color: "#ffffff" }}>
-      <h2>Skills Radar Chart</h2>
-      <p>Visualizing skill levels</p>
       <RadarChart cx="50%" cy="50%" outerRadius="80%" width={400} height={400} data={skillsData}>
         <PolarGrid />
         <PolarAngleAxis dataKey="type" stroke="#ffffff" />
@@ -45,7 +48,6 @@ export function SkillsRadarChart () {
         <Tooltip />
       </RadarChart>
       <div style={{ marginTop: "20px", fontSize: "14px" }}>
-        <p style={{ color: "#aaaaaa" }}>Skill data overview</p>
       </div>
     </div>
   );
