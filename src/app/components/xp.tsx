@@ -33,10 +33,20 @@ export function XPBarChart() {
     return <div>Loading...</div>;
   }
 
-  // Format data for the bar chart
-  const chartData = transactions.map((transaction) => ({
-    createdAt: new Date(transaction.createdAt).toLocaleDateString(), // Format date
-    amount: transaction.amount,
+  // Group transactions by month and sum the amounts
+  const groupedData = transactions.reduce((acc, transaction) => {
+    const month = new Date(transaction.createdAt).toLocaleString("default", { month: "short", year: "numeric" });
+    if (!acc[month]) {
+      acc[month] = 0;
+    }
+    acc[month] += transaction.amount;
+    return acc;
+  }, {} as Record<string, number>);
+
+  // Format the grouped data for the bar chart
+  const chartData = Object.entries(groupedData).map(([month, totalAmount]) => ({
+    month,
+    amount: totalAmount,
   }));
 
   return (
@@ -44,10 +54,15 @@ export function XPBarChart() {
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="createdAt" />
-          <YAxis />
+          <XAxis 
+            dataKey="month" 
+            label={{ value: "Month", position: "insideBottom", offset: -5 }} 
+          />
+          <YAxis 
+            label={{ value: "Total XP", angle: -90, position: "insideLeft" }} 
+          />
           <Tooltip />
-          <Bar dataKey="amount" fill="#8884d8" />
+          <Bar dataKey="amount" fill="#8884d8" barSize={30} />
         </BarChart>
       </ResponsiveContainer>
     </div>
