@@ -5,6 +5,7 @@ import { fetchUserId } from "../../lib/api"; // Import the fetchUserId function
 import ChartComponent from "../components/audit"; 
 import { XPBarChart } from "../components/xp"; // Import the XPBarChart component
 import { SkillsRadarChart } from "../components/skills"; // Import the default export
+import Header from "../components/header"; // Import the Header component
 
 const DashboardPage = () => {
   const [userData, setUserData] = useState<any>(null);
@@ -40,19 +41,25 @@ const DashboardPage = () => {
     <div
       style={{
         padding: "2rem",
+        paddingTop: "8rem",
         backgroundColor: "#1e1e1e", // Dark background color
         color: "#ffffff", // Light text color for contrast
         minHeight: "100vh",
       }}
     >
-      <h6 style={{ fontSize: "20px", fontWeight: "bold" }}>Talent Personal Info</h6>
+      {/* Add the Header component */}
+      <Header />
+
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h6 style={{ fontSize: "20px", fontWeight: "bold" }}>Talent Personal Info</h6>
+      </div>
 
       {userData && (
         <div
           style={{
             marginBottom: "2rem",
             padding: "1rem",
-            backgroundColor: "#2c2c2c", // Slightly lighter dark background for cards
+            backgroundColor: "#292a2d", // Slightly lighter dark background for cards
             borderRadius: "8px",
           }}
         >

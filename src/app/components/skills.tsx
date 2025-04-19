@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip } from "recharts";
+import { RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip, ResponsiveContainer } from "recharts";
 import { Mke } from "../../lib/api";
 
 export function SkillsRadarChart () {
@@ -34,19 +34,21 @@ export function SkillsRadarChart () {
   }
 
   return (
-    <div style={{ maxWidth: "500px", margin: "0 auto", textAlign: "center", color: "#ffffff" }}>
-      <RadarChart cx="50%" cy="50%" outerRadius="80%" width={400} height={400} data={skillsData}>
-        <PolarGrid />
-        <PolarAngleAxis dataKey="type" stroke="#ffffff" />
-        <Radar
-          name="Skill Levels"
-          dataKey="amount"
-          stroke="#8884d8"
-          fill="#8884d8"
-          fillOpacity={0.6}
-        />
-        <Tooltip />
-      </RadarChart>
+    <div style={{ width: "100%", maxWidth: "600px", margin: "0 auto", textAlign: "center", color: "#ffffff", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <ResponsiveContainer width="100%" aspect={1.2}>
+        <RadarChart cx="50%" cy="50%" outerRadius="70%" data={skillsData}>
+          <PolarGrid />
+          <PolarAngleAxis dataKey="type" stroke="#ffffff" />
+          <Radar
+            name="Skill Levels"
+            dataKey="amount"
+            stroke="#8884d8"
+            fill="#8884d8"
+            fillOpacity={0.6}
+          />
+          <Tooltip />
+        </RadarChart>
+      </ResponsiveContainer>
       <div style={{ marginTop: "20px", fontSize: "14px" }}>
       </div>
     </div>
