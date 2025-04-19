@@ -5,7 +5,7 @@ import Logout from "./logout";
 
 export default function Header() {
   return (
-    <header className="header fixed top-0 left-0 w-full flex justify-between items-center px-8 py-4  h-20 p-2.5 bg-zinc-800/60 backdrop-blur-xl  z-50 border-b border-white/30">
+    <header className="header fixed top-0 left-0 w-full flex justify-between items-center px-8 py-4  h-20 p-2.5 bg-neutral-700/60 backdrop-blur-xl  z-50 border-b border-white/30">
       {/* Logo */}
       <div className="logo flex items-center">
         <Image

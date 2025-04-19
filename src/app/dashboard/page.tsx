@@ -1,22 +1,21 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { fetchUserId } from "../../lib/api"; // Import the fetchUserId function
-import ChartComponent from "../components/audit"; 
-import { XPBarChart } from "../components/xp"; // Import the XPBarChart component
-import { SkillsRadarChart } from "../components/skills"; // Import the default export
-import Header from "../components/header"; // Import the Header component
+import { fetchUserId } from "../../lib/api";
+import ChartComponent from "../components/audit";
+import { XPBarChart } from "../components/xp";
+import { SkillsRadarChart } from "../components/skills";
+import Header from "../components/header";
 
 const DashboardPage = () => {
   const [userData, setUserData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string>("skills"); // State for active tab
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch user ID using the imported function
         const data = await fetchUserId();
-
         const user = {
           id: data[1],
           firstname: data[2],
@@ -42,12 +41,11 @@ const DashboardPage = () => {
       style={{
         padding: "2rem",
         paddingTop: "8rem",
-        backgroundColor: "#1e1e1e", // Dark background color
-        color: "#ffffff", // Light text color for contrast
+        backgroundColor: "#1e1e1e",
+        color: "#ffffff",
         minHeight: "100vh",
       }}
     >
-      {/* Add the Header component */}
       <Header />
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -59,7 +57,7 @@ const DashboardPage = () => {
           style={{
             marginBottom: "2rem",
             padding: "1rem",
-            backgroundColor: "#292a2d", // Slightly lighter dark background for cards
+            backgroundColor: "#2c2c2c",
             borderRadius: "8px",
           }}
         >
@@ -71,44 +69,63 @@ const DashboardPage = () => {
         </div>
       )}
 
-      <h6 style={{ fontSize: "20px", fontWeight: "bold" }}> Talent Data</h6>
+      <h6 style={{ fontSize: "20px", fontWeight: "bold" }}>Talent Data</h6>
 
-      {/* Grid Layout for Charts */}
+      {/* Tab Navigation */}
+      <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+        <button
+          onClick={() => setActiveTab("skills")}
+          style={{
+            padding: "0.5rem 1rem",
+            backgroundColor: activeTab === "skills" ? "white" : "",
+            color: activeTab === "skills" ? "black" : "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          Skills
+        </button>
+        <button
+          onClick={() => setActiveTab("xp")}
+          style={{
+            padding: "0.5rem 1rem",
+            backgroundColor: activeTab === "xp" ? "white" : "",
+            color: activeTab === "xp" ? "black" : "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          XP
+        </button>
+        <button
+          onClick={() => setActiveTab("audit")}
+          style={{
+            padding: "0.5rem 1rem",
+            backgroundColor: activeTab === "audit" ? "white" : "",
+            color: activeTab === "audit" ? "black" : "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          Audit
+        </button>
+      </div>
+
+      {/* Conditionally Render Components */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "2rem",
-          marginBottom: "2rem",
+          padding: "1rem",
+          backgroundColor: "#2c2c2c",
+          borderRadius: "8px",
         }}
       >
-        <div
-          style={{
-            padding: "1rem",
-            backgroundColor: "#2c2c2c", // Slightly lighter dark background for cards
-            borderRadius: "8px",
-
-          }}
-        >
-          <p><strong>Audit Ratio</strong> </p>
-
-          <ChartComponent />
-        </div>
-
-        <div
-          style={{
-            padding: "1rem",
-            backgroundColor: "#2c2c2c", // Slightly lighter dark background for cards
-            borderRadius: "8px",
-
-          }}
-        >
-          <p><strong>BH-Module XP</strong> </p>
-          <SkillsRadarChart/>
-        </div>
+        {activeTab === "skills" && <SkillsRadarChart />}
+        {activeTab === "xp" && <XPBarChart />}
+        {activeTab === "audit" && <ChartComponent />}
       </div>
-      <XPBarChart />
-
     </div>
   );
 };

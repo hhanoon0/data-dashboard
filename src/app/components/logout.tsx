@@ -15,7 +15,7 @@ export default function Logout() {
   };
 
   return (
-    <button  onClick={handleLogout} className="logout-button flex items-center gap-2 w-28 h-10 p-2.5 bg-black rounded-[10px] border border-stone-50/40">
+    <button onClick={handleLogout} className="logout-button cursor-pointer flex items-center justify-center text-center gap-2 w-28 h-10 p-2.5 bg-white rounded-[10px] text-black">
       <FiLogOut size={20} /> {/* Logout icon */}
       Logout
     </button>
