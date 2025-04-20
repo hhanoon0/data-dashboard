@@ -156,7 +156,7 @@ export async function XPsum() {
     `;
     const data = await fetchGraphQL(query);
     console.log("xps total:", data); // Log the user ID
-    return []; // Return the user ID
+    return data; // Return the user ID
 }
 
 export async function Mke() {

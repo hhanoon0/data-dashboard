@@ -5,6 +5,7 @@ import { fetchUserId } from "../../lib/api";
 import ChartComponent from "../components/audit";
 import { XPBarChart } from "../components/xp";
 import { SkillsRadarChart } from "../components/skills";
+import {TotalXP} from "../components/totalxp"; // Import the TotalXP component}
 import Header from "../components/header";
 
 const DashboardPage = () => {
@@ -61,11 +62,11 @@ const DashboardPage = () => {
             borderRadius: "8px",
           }}
         >
-          <p><strong>ID:</strong> {userData.id}</p>
+          <p><strong>Username:</strong> {userData.id}</p>
           <p><strong>First Name:</strong> {userData.firstname}</p>
           <p><strong>Last Name:</strong> {userData.lastname}</p>
           <p><strong>Email:</strong> {userData.email}</p>
-          <p><strong>Joined Date:</strong> {userData.joinedAt}</p>
+          <p><strong>First game date:</strong> {userData.joinedAt}</p>
         </div>
       )}
 
@@ -118,13 +119,46 @@ const DashboardPage = () => {
       <div
         style={{
           padding: "1rem",
-          backgroundColor: "#2c2c2c",
+          backgroundColor: "",
           borderRadius: "8px",
         }}
       >
-        {activeTab === "skills" && <SkillsRadarChart />}
-        {activeTab === "xp" && <XPBarChart />}
-        {activeTab === "audit" && <ChartComponent />}
+        {activeTab === "skills" && (
+          <div style={{  display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+            <h6 style={{ marginBottom: "1rem", fontSize: "18px", fontWeight: "bold" }}>technical skills progress</h6>
+            <SkillsRadarChart />
+          </div>
+        )}
+        {activeTab === "xp" && (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+            <div
+              style={{
+                padding: "1rem",
+                backgroundColor: "#2c2c2c",
+                borderRadius: "8px",
+              }}
+            >
+              <h6 style={{ marginBottom: "1rem", fontSize: "18px", fontWeight: "bold" }}>XP Data during 01 program</h6>
+              <XPBarChart />
+            </div>
+            <div
+              style={{
+                padding: "1rem",
+                backgroundColor: "#2c2c2c",
+                borderRadius: "8px",
+              }}
+            >
+              <h6 style={{ marginBottom: "1rem", fontSize: "18px", fontWeight: "bold" }}>Total xp</h6>
+              <TotalXP />
+            </div>
+          </div>
+        )}
+        {activeTab === "audit" && (
+          <>
+            <h6 style={{ marginBottom: "1rem", fontSize: "18px", fontWeight: "bold" }}>Audit credit </h6>
+            <ChartComponent />
+          </>
+        )}
       </div>
     </div>
   );

@@ -23,8 +23,8 @@ export function ChartComponent() {
           // Update state with fetched data
           const formattedData: AuditDataType = {
             AuditRatio: data[0],
-            totalUp: (data[1]/1000000),
-            totalDown: (data[2]/1000000),
+            totalUp: Math.floor(data[1]/1000000 *10) /10,
+            totalDown: Math.floor(data[2]/1000000 *10) /10,
           };
           console.log("audit info", formattedData); // Log the audit data
           setAuditData(formattedData);
@@ -49,7 +49,7 @@ const pieData = [
     { name: 'Total Up', value: auditData?.totalUp },
 ];
 
-const COLORS = ['#8884d8', '#82ca9d'];
+const COLORS = ['#8884d8', '#63609B'];
   const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
