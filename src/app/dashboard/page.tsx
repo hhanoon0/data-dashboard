@@ -73,7 +73,7 @@ const DashboardPage = () => {
       <h6 style={{ fontSize: "20px", fontWeight: "bold" }}>Talent Data</h6>
 
       {/* Tab Navigation */}
-      <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+      <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
         <button
           onClick={() => setActiveTab("skills")}
           style={{
