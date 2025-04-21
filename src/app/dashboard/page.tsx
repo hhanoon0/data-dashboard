@@ -18,6 +18,24 @@ const DashboardPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>("skills"); // State for active tab
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Check on mount
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const responsiveGridStyle = {
+    display: "grid",
+    gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", // Single column for mobile, two columns for larger screens
+    gap: "1rem",
+  };
   
 
   useEffect(() => {
@@ -52,6 +70,7 @@ const DashboardPage = () => {
         backgroundColor: "#1e1e1e",
         color: "#ffffff",
         minHeight: "100vh",
+        overflow: 'hidden'
       }}
     >
       <Header />
@@ -63,7 +82,7 @@ const DashboardPage = () => {
       {userData && (
 
 
-<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+<div style={responsiveGridStyle}>
 <div
   style={{
     padding: "1rem",
@@ -159,7 +178,7 @@ const DashboardPage = () => {
         }}
       >
         {activeTab === "skills" && (
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div style={responsiveGridStyle}>
             <div
               style={{
                 padding: "1rem",
@@ -183,7 +202,7 @@ const DashboardPage = () => {
           </div>
         )}
         {activeTab === "xp" && (
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div style={responsiveGridStyle}>
             <div
               style={{
                 padding: "1rem",
@@ -208,7 +227,7 @@ const DashboardPage = () => {
         )}
         {activeTab === "audit" && (
 
-<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+<div style={responsiveGridStyle}>
 <div
   style={{
     padding: "1rem",

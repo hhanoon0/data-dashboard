@@ -45,8 +45,8 @@ const data = [
 
 
 const pieData = [
-  { name: 'Total Down', value: auditData?.totalDown },
-    { name: 'Total Up', value: auditData?.totalUp },
+  { name: 'Receiving Audit', value: auditData?.totalDown },
+    { name: 'Giving Audit', value: auditData?.totalUp },
 ];
 
 const COLORS = ['#FF2056', '#FF7F9E'];
@@ -83,7 +83,7 @@ const COLORS = ['#FF2056', '#FF7F9E'];
             startAngle={rotation}
             endAngle={rotation + 360}
             fill="#8884d8"
-            label={false}
+            label={({ value }) => `${value} MB`}
           >
             {pieData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke='none' />

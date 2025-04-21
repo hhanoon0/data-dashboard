@@ -2,7 +2,7 @@ import AuthPage from "./(auth)/auth";
 
 export default function Page() {
   return (
-    <div>
+    <div style={{ minHeight: '100dvh', overflow: 'hidden' }}>
       <AuthPage />
     </div>
   );

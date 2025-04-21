@@ -35,7 +35,7 @@ export function CodingSkillsRadarChart() {
 
   return (
     <div style={{ width: "100%", maxWidth: "600px", margin: "0 auto", textAlign: "center", color: "#ffffff", display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <ResponsiveContainer width="100%" aspect={1.2}>
+      <ResponsiveContainer width="100%" aspect={1.2} minWidth={400}>
         <RadarChart cx="50%" cy="50%" outerRadius="60%" data={codingSkillsData}   margin={{ top: 20, right: 30, bottom: 20, left: 30 }}
         >
           <PolarGrid />
