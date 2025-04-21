@@ -8,7 +8,7 @@ export default function Logout() {
 
   const handleLogout = () => {
     // Remove the token (example: from localStorage)
-    localStorage.removeItem("token");
+    localStorage.removeItem("jwt");
 
     // Redirect to the main page
     router.push("/");
