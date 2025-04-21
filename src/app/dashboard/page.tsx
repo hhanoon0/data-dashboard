@@ -83,10 +83,13 @@ const DashboardPage = () => {
   style={{
     padding: "1rem",
     backgroundColor: "#2c2c2c",
-    borderRadius: "8px",
+    borderRadius: "8px",  // Stack children vertically
+    alignItems: "center" 
   }}
 >
   <h6 style={{marginBottom: "1rem", fontSize: "18px", fontWeight: "bold" }}>Talent level</h6>
+
+
   <Level />
 </div>
 </div>

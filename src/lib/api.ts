@@ -236,4 +236,22 @@ console.log("total audit sum info :", numberOfTransactions)
 console.log("total audit sum info", data); // Log the user ID
 return (numberOfTransactions);
 }
-TotalAudits();
+
+
+export async function Userlevel() {
+
+  const query =`{
+  user {
+    events(where: { eventId: { _in: [20, 72, 250] } }) {
+      id
+      level
+      eventId
+      userId
+    }
+  }
+}`;
+const data = await fetchGraphQL(query);
+const level = data.user[0].events[0].level;
+console.log("Userlevel data", level); // Log the user ID
+return level
+}
