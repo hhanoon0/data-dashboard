@@ -136,8 +136,7 @@ query {
 `;
 
   const data = await fetchGraphQL(query);
-  numberOfTransactions = data.transaction.length;
-  console.log("number of transactions :", numberOfTransactions) // Get the number of transactions
+// Get the number of transactions
   console.log("xps:", data.transaction); // Log the user ID
   return data; // Return the user ID
 }
@@ -216,15 +215,25 @@ const data = await fetchGraphQL(query);
 
 
 export async function TotalAudits() {
-  const query = `query Audit {
-  	user {
-      auditRatio
-      totalUp
-      totalDown
+  const query = `query {
+  transaction(
+    where: {
+      path: { _like: "/bahrain/bh-module%" }
+      type: { _in: ["up", "down"] }
     }
+    order_by: { createdAt: asc }
+  ) {
+    path
+    type
+    amount
+    createdAt
+  }
 }
 `;
 const data = await fetchGraphQL(query);
-return (data.user.totalUp?.length || 0) + (data.user.totalDown?.length || 0);
-
+numberOfTransactions = data.transaction.length;
+console.log("total audit sum info :", numberOfTransactions) 
+console.log("total audit sum info", data); // Log the user ID
+return (numberOfTransactions);
 }
+TotalAudits();
