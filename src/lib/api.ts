@@ -124,7 +124,16 @@ export async function Xps() {
   const query = `
 query {
   transaction(
-    where: { path: { _like: "/bahrain/bh-module%" } }
+    where: {
+      path: { _like: "/bahrain/bh-module%" }
+      _not: {
+        _or: [
+          { path: { _like: "/bahrain/bh-module/piscine-js%" } }
+          { path: { _like: "/bahrain/bh-module/checkpoint%" } }
+        ]
+      }
+      type: { _nin: ["down", "up", "level"] }
+    }
     order_by: { createdAt: asc }
   ) {
     path
@@ -135,6 +144,20 @@ query {
 }
 `;
 
+
+// `query {
+//     transaction_aggregate(
+//       where: { path: { _like: "/bahrain/bh-module%" } }
+//     ) {
+//       aggregate {
+//         sum {
+//           amount
+//         }
+//       }
+//     }
+//   }
+//     `
+
   const data = await fetchGraphQL(query);
 // Get the number of transactions
   console.log("xps:", data.transaction); // Log the user ID
@@ -143,9 +166,7 @@ query {
 Xps();
 export async function XPsum() {
   const query = `query {
-    transaction_aggregate(
-      where: { path: { _like: "/bahrain/bh-module%" } }
-    ) {
+    transaction_aggregate {
       aggregate {
         sum {
           amount
@@ -242,7 +263,7 @@ export async function Userlevel() {
 
   const query =`{
   user {
-    events(where: { eventId: { _in: [20, 72, 250] } }) {
+    events(where: { eventId: { _in: [20, 72, 250, 763] } }) {
       id
       level
       eventId

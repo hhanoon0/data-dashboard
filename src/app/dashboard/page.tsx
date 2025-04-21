@@ -9,7 +9,6 @@ import {TotalXP} from "../components/totalxp"; // Import the TotalXP component}
 import { Level } from "../components/level"; // Import the Level component
 import { CodingSkillsRadarChart } from "../components/codingSkills";
 import { TotalAudit } from "../components/totalaudits"; // Import the TotalAudit component
-import Showerror  from "../components/error";
 
 
 import Header from "../components/header";
@@ -42,7 +41,7 @@ const DashboardPage = () => {
   }, []);
 
   if (error) {
-    return (<Showerror/>);
+    return  <div>Error: {error}</div>;
   }
 
   return (
@@ -192,7 +191,7 @@ const DashboardPage = () => {
                 borderRadius: "8px",
               }}
             >
-              <h6 style={{ marginBottom: "1rem", fontSize: "18px", fontWeight: "bold" }}>XP Data during 01 program</h6>
+              <h6 style={{ marginBottom: "1rem", fontSize: "18px", fontWeight: "bold" }}>Projects XPs during 01</h6>
               <XPBarChart />
             </div>
             <div
