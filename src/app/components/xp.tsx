@@ -62,7 +62,7 @@ export function XPBarChart() {
             label={{ value: "Total XP", angle: -90, position: "insideLeft" }} 
           />
           <Tooltip />
-          <Bar dataKey="amount" fill="#8884d8" barSize={30} />
+          <Bar dataKey="amount" fill="#FF2056" barSize={30} />
         </BarChart>
       </ResponsiveContainer>
     </div>

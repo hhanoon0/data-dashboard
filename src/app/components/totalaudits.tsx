@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { XPsum } from "../../lib/api";
+import {TotalAudits} from "../../lib/api"; // Import the TotalAudits function
 
-export const TotalXP: React.FC = () => {
-  const [totalXP, setTotalXP] = useState<number | null>(null);
+
+export const TotalAudit: React.FC = () => {
+  const [totalAd, setTotal] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchTotalXP = async () => {
+    const fetchTotal = async () => {
       try {
-        const sum = await XPsum(); // Call the updated XPsum function
-        setTotalXP(sum.transaction_aggregate.aggregate.sum.amount); // Set the total XP in state
+        const sum = await TotalAudits(); // Call the updated XPsum function
+        setTotal(sum); // Set the total XP in state
       } catch (err) {
         console.error("Error fetching total XP:", err);
         setError("Failed to fetch total XP");
       }
     };
 
-    fetchTotalXP();
+    fetchTotal();
   }, []);
-    console.log("totalxp:", totalXP); // Log the total XP
+    console.log("totalxp:", totalAd); // Log the total XP
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -32,10 +33,10 @@ export const TotalXP: React.FC = () => {
         height: "100%", // Ensures the content is vertically centered within the parent container
       }}
     >
-      {totalXP !== null ? (
+      {totalAd !== null ? (
         <p style={{ fontSize: "100px", margin: 0, fontWeight: "bold", color: "#FF2056" }}>
-          {Math.floor(totalXP / 10 / 1024)}
-          <span style={{ fontSize: "40px", fontWeight: "lighter", marginLeft: "5px" }}>kB</span>
+          {(totalAd)}
+          <span style={{ fontSize: "40px", fontWeight: "lighter", marginLeft: "5px" }}>Audits</span>
         </p>
       ) : (
         <p style={{ fontSize: "100px", margin: 0, fontWeight: "bold" }}>Loading...</p>
@@ -44,4 +45,4 @@ export const TotalXP: React.FC = () => {
   );
 };
 
-export default TotalXP;
+export default TotalAudit;

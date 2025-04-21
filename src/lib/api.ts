@@ -136,11 +136,12 @@ query {
 `;
 
   const data = await fetchGraphQL(query);
-  numberOfTransactions  = data.transaction.length; // Get the number of transactions
+  numberOfTransactions = data.transaction.length;
+  console.log("number of transactions :", numberOfTransactions) // Get the number of transactions
   console.log("xps:", data.transaction); // Log the user ID
   return data; // Return the user ID
 }
-
+Xps();
 export async function XPsum() {
   const query = `query {
     transaction_aggregate(
@@ -184,4 +185,46 @@ const query = `query {
     const data = await fetchGraphQL(query);
     console.log("skill info", data); // Log the user ID
     return data; // Return the user ID
+}
+
+
+export async function GetCodingskills() {
+  const query = `query {
+    transaction(
+        where: {
+            _and: [
+                {type: { _iregex: "(^|[^[:alnum:]_])[[:alnum:]_]*skill_[[:alnum:]_]*($|[^[:alnum:]_])" }},
+                {type: {_like: "%skill%"}},
+                {object: {type: {_eq: "project"}}},
+                {type: {_in: [
+"skill_go", "skill_js", "skill_rust", "skill_css", "skill_html", "skill_sql", "skill_unix", "skill_docker"
+                ]}}
+            ]
+        }
+        order_by: [{type: asc}, {createdAt: desc}]
+        distinct_on: type
+    ) {
+        amount
+        type
+    }
+}`
+const data = await fetchGraphQL(query);
+    console.log("skill info", data); // Log the user ID
+    return data; // Return the user ID
+}
+
+
+
+export async function TotalAudits() {
+  const query = `query Audit {
+  	user {
+      auditRatio
+      totalUp
+      totalDown
+    }
+}
+`;
+const data = await fetchGraphQL(query);
+return (data.user.totalUp?.length || 0) + (data.user.totalDown?.length || 0);
+
 }

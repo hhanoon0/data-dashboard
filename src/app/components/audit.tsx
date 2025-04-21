@@ -49,7 +49,7 @@ const pieData = [
     { name: 'Total Up', value: auditData?.totalUp },
 ];
 
-const COLORS = ['#8884d8', '#63609B'];
+const COLORS = ['#FF2056', '#FF7F9E'];
   const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
