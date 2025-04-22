@@ -34,7 +34,7 @@ export const TotalXP: React.FC = () => {
     >
       {totalXP !== null ? (
         <p style={{ fontSize: "100px", margin: 0, fontWeight: "bold", color: "#FF2056" }}>
-          {(totalXP / 10 / 1024 / 1000).toFixed(2)}
+          {((totalXP / 10 / 1000 / 1000) * 10).toFixed(3)}
           <span style={{ fontSize: "40px", fontWeight: "lighter", marginLeft: "5px" }}>MB</span>
         </p>
       ) : (
