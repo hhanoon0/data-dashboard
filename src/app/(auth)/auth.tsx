@@ -30,7 +30,6 @@ const AuthPage = () => {
       const data = await response.json();
       setJwt(data.token); // Assuming the JWT is returned as `token`
       localStorage.setItem("jwt", data); // Store JWT in localStorage
-      console.log("JWT:", data); // Log the JWT for debugging
 
       // Redirect to the dashboard after successful login
       router.push("/dashboard");
