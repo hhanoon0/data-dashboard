@@ -28,19 +28,15 @@ export function ChartComponent() {
           };
           console.log("audit info", formattedData); // Log the audit data
           setAuditData(formattedData);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
           setError(error.message || "Failed to fetch data");
+          // return <div>Error: {error}</div>;
         }
       };
   
       fetchData();
     }, []);
-
-const data = [
-  {
-    name: 'Your Audits credits',
-  },
-];
 
 
 
@@ -66,6 +62,10 @@ const COLORS = ['#FF2056', '#FF7F9E'];
       clearTimeout(timeout);
     };
   }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div style={{ width: '100%', height: '400px', position: 'relative' }}>

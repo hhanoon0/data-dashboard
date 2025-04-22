@@ -13,8 +13,17 @@ import { TotalAudit } from "../components/totalaudits"; // Import the TotalAudit
 
 import Header from "../components/header";
 
+
+interface UserData {
+  id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  joinedAt: string;
+}
+
 const DashboardPage = () => {
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>("skills"); // State for active tab
 
@@ -50,6 +59,7 @@ const DashboardPage = () => {
           joinedAt: new Date(data[5]).toLocaleDateString(),
         };
         setUserData(user);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         setError(err.message || "Failed to fetch data");
       }

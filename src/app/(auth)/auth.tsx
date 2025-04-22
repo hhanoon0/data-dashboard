@@ -34,6 +34,7 @@ const AuthPage = () => {
 
       // Redirect to the dashboard after successful login
       router.push("/dashboard");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || "An error occurred");
     }

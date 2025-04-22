@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { LabelList, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Xps } from "../../lib/api"; // Import the Xps function
 
 interface Transaction {
@@ -17,6 +17,7 @@ export function XPBarChart() {
       try {
         const data = await Xps();
         setTransactions(data.transaction); // Ensure the correct path to the transaction array
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         setError(err.message || "Failed to fetch transactions");
       }

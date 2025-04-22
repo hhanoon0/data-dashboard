@@ -5,14 +5,17 @@ import { Mke } from "../../lib/api";
 
 export function SkillsRadarChart () {
   const [skillsData, setSkillsData] = useState<{ type: string; amount: number }[]>([]);
-
+  interface CodingSkill {
+    type: string;
+    // other fields based on your data
+  }
   useEffect(() => {
     const fetchSkills = async () => {
       try {
         const data = await Mke();
         if (Array.isArray(data.transaction)) {
           // Replace underscores with spaces in the type field
-          const formattedData = data.transaction.map((item) => ({
+          const formattedData = data.transaction.map((item:CodingSkill) => ({
             ...item,
             type: item.type.replace(/_/g, " ").replace(/skill/gi, "").trim(),
           }));

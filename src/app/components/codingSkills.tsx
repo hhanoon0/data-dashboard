@@ -4,14 +4,18 @@ import { GetCodingskills } from "../../lib/api";
 
 export function CodingSkillsRadarChart() {
   const [codingSkillsData, setCodingSkillsData] = useState<{ type: string; level: number }[]>([]);
-
+  interface CodingSkill {
+    type: string;
+    // other fields based on your data
+  }
+  
   useEffect(() => {
     const fetchCodingSkills = async () => {
       try {
         const data = await GetCodingskills();
         if (Array.isArray(data.transaction)) {
           // Replace underscores with spaces in the type field
-          const formattedData = data.transaction.map((item) => ({
+          const formattedData = data.transaction.map((item:CodingSkill) => ({
             ...item,
             type: item.type.replace(/_/g, " ").replace(/skill/gi, "").trim(),
           }));
