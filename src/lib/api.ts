@@ -174,9 +174,11 @@ query {
         {
           _and: [
             { path: { _like: "/bahrain/bh-module%" } },
-            { path: { _nlike: "%piscine-js/%" } }
+            { path: { _nlike: "%piscine-js/%" } },
+            { path: { _nlike: "%piscine-rust/%" } },
           ]
-        }
+        },
+        { path: { _eq: "/bahrain/bh-module/rust-js" } }  # Added condition here
       ],
       type: { _eq: "xp" }
     }
