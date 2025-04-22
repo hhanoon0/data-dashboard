@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { LabelList, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Xps } from "../../lib/api"; // Import the Xps function
 
 interface Transaction {
@@ -39,7 +39,7 @@ export function XPBarChart() {
     if (!acc[month]) {
       acc[month] = 0;
     }
-    acc[month] += transaction.amount;
+    acc[month] += Math.floor(transaction.amount / 1024) ; 
     return acc;
   }, {} as Record<string, number>);
 
@@ -47,8 +47,9 @@ export function XPBarChart() {
   const chartData = Object.entries(groupedData).map(([month, totalAmount]) => ({
     month,
     amount: totalAmount,
+    displayAmount: `${totalAmount} kB`, // Add a new field for display with kB
   }));
-
+  
   return (
     <div style={{ width: "100%", height: "400px" }}>
       <ResponsiveContainer width="100%" height="100%">
@@ -59,14 +60,16 @@ export function XPBarChart() {
             label={{ value: "Month", position: "insideBottom", offset: -5 }} 
           />
           <YAxis 
-            label={{ value: "Total XP", angle: -90, position: "insideLeft" }} 
+            label={{ value: "XP", angle: -90, position: "insideLeft" }} 
           />
-          <Tooltip />
+          <Tooltip 
+            formatter={(value, name, props) => [props.payload.displayAmount, name]}
+            labelFormatter={(label) => `Month: ${label}`}
+          />
           <Bar dataKey="amount" fill="#FF2056" barSize={30} />
         </BarChart>
       </ResponsiveContainer>
     </div>
   );
 }
-
 export default XPBarChart;

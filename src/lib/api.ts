@@ -165,20 +165,38 @@ query {
 }
 Xps();
 export async function XPsum() {
-  const query = `query {
-    transaction_aggregate {
-      aggregate {
-        sum {
-          amount
+  const query = `
+query {
+  transaction_aggregate(
+    where: {
+      _or: [
+        { path: { _eq: "/bahrain/bh-module/piscine-js" } },
+        {
+          _and: [
+            { path: { _like: "/bahrain/bh-module%" } },
+            { path: { _nlike: "%piscine-js/%" } }
+          ]
         }
+      ],
+      type: { _eq: "xp" }
+    }
+  ) {
+    aggregate {
+      sum {
+        amount
       }
     }
   }
+}
     `;
     const data = await fetchGraphQL(query);
-    console.log("xps total:", data); // Log the user ID
-    return data; // Return the user ID
+    
+
+
+    console.log("XP total:", data.transaction);
+    return data;
 }
+XPsum();
 
 export async function Mke() {
 const query = `query {
