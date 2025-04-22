@@ -172,7 +172,6 @@ const DashboardPage = () => {
       {/* Conditionally Render Components */}
       <div
         style={{
-          padding: "1rem",
           backgroundColor: "",
           borderRadius: "8px",
         }}
